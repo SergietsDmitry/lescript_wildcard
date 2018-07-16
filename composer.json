@@ -1,0 +1,31 @@
+{
+  "name": "sergietsdmitry/lescript_wildcard",
+  "description": "ACME v2 Compatible Client on PHP",
+  "type": "library",
+  "license": "BSD",
+  "keywords": [
+    "encryption", "letsencrypt", "ACME", "Wildcard"
+  ],
+  "authors": [
+    {
+      "name": "Sergiets Dmitry",
+      "email": "sergietsdmitry@gmail.com",
+      "homepage": "vk.com/sergiets",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "ext-curl": "*",
+    "ext-openssl": "*"
+  },
+  "require-dev": {
+    "psr/log": "^1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sergiets\\LescriptWildcard\\Src\\": "src/"
+    },
+    "files": ["Wildcard.php"]
+  }
+}
