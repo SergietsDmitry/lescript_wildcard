@@ -19,26 +19,32 @@ class Client implements ClientInterface
 
     private $base;
 
+    private $last_nounce = null;
+
     public function __construct($base)
     {
         $this->base = $base;
+    }
+
+    public function getBase()
+    {
+        return $this->base;
     }
 
     private function curl($method, $url, $data = null)
     {
         $headers = [
             'Accept: application/json',
-            'Content-Type: application/json'
+            'Content-Type: application/jose+json'
         ];
+
         $handle  = curl_init();
+
         curl_setopt($handle, CURLOPT_URL, preg_match('~^http~', $url) ? $url : $this->base . $url);
         curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_HEADER, true);
-
-        // DO NOT DO THAT!
-        // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
-        // curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($handle, CURLOPT_VERBOSE, true);
 
         switch ($method)
         {
@@ -49,7 +55,10 @@ class Client implements ClientInterface
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
                 break;
         }
+
         $response = curl_exec($handle);
+
+        //d($response);
 
         if (curl_errno($handle))
         {
@@ -63,6 +72,11 @@ class Client implements ClientInterface
 
         $this->lastHeader = $header;
         $this->lastCode   = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+        if (preg_match('~Replay\-Nonce: (.+)~i', $this->lastHeader, $matches))
+        {
+            $this->last_nounce = trim($matches[1]);
+        }
 
         $data = json_decode($body, true);
 
@@ -83,12 +97,12 @@ class Client implements ClientInterface
     {
         if (preg_match('~Replay\-Nonce: (.+)~i', $this->lastHeader, $matches))
         {
-            return trim($matches[1]);
+            $this->last_nounce = trim($matches[1]);
+
+            return $this->last_nounce;
         }
 
-        $this->curl('GET', '/directory');
-
-        return $this->getLastNonce();
+        return $this->last_nounce;
     }
 
     public function getLastLocation()
