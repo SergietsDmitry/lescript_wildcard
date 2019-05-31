@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
+## Changed Let's encrypt client concept in PHP for getting Wildcard certificates
 
-You can use the [editor on GitHub](https://github.com/SergietsDmitry/lescript_wildcard/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+    Note: lescript is standalone part of LEManager
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Fork from https://github.com/analogic/lescript
 
-### Markdown
+Lescript is simplified concept of ACME client implementation especially for Let's Encrypt service. It's goal is to have one easy to use PHP file without dependencies.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Use at your own risk.
 
-```markdown
-Syntax highlighted code block
+## Usage
+See commented content of Lescript.php and _example.php. Please rewrite files to fit your needs - purpose of this library is not to use as it is nor use it in production!
 
-# Header 1
-## Header 2
-### Header 3
+Support challenge only through webroot.
+Requirements
 
-- Bulleted
-- List
+    PHP 7.1 and up
+    OpenSSL extension
+    Curl extension
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SergietsDmitry/lescript_wildcard/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
